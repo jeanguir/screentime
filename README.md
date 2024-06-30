@@ -6,6 +6,8 @@
 1. Веб-панель для администратора
 2. Десктопная программа, написанная на Java
 3. Серверные PHP скрипты, соединяющие экземпляры Java-программы сотрудников, веб-панель и базу данных
+4. Помимо всего прочего, я скомпилировал программу через Apache Maven и сделал .exe установщик с автоматической установкой JVM и JDK
+
 
 
 ## Java
@@ -15,6 +17,7 @@ Java работает в несколько потоков, вот таким о
 3. Там они сверяются с таблицей instructions, где находятся настройки для каждого отдельного сотрудника (там определено, надо ли делать скриншоты экрана, с каким интервалом их делать, отслеживать ли вкладки, отслеживать ли окна и т. п.)
 4. Далее, в соответствии с настройками собираются заголовки окон и помещаются в Hash-карту (такой функционал был реализован для того, чтобы после возвращения к старому окну, отсчет времени, проведенного за ним, не начинался по новому), также делаются скриншоты и проверяется, двигает ли пользователь мышью/совершает ли ввод с клавиатуры. Таким образом учитывается только то время в программе и за компьютером, когда пользователь активен.
 5. Скриншоты, заголовки окон, вкладок, информация о неактивностях, экранное время вместе с id пользователя собираются в JSON-строку и отправляются HTTP-запросом на PHP скрипты, которые обрабатывают их в базу данных.
+
 
 
 ## Веб-панель
@@ -33,15 +36,16 @@ Java работает в несколько потоков, вот таким о
 ![Снимок экрана 2024-06-30 в 23 02 20](https://github.com/jeanguir/screentime/assets/89830596/0ef3eacc-a270-4c39-a0de-d16053c76c1a)
 
 
+
 ## Базы данных
 В phpMyAdmin у меня была база данных со следующими таблицами:
-1. daily_activity
+### daily_activity
 id (integer)
 user_id (integer)
 hours (double)
 workday (YYYY-MM-DD)
 
-2. inactivities
+### inactivities
 id (integer)
 start (HH-MM)
 end (HH-MM)
@@ -49,7 +53,7 @@ duration (float)
 date (YYYY-MM-DD)
 user_id (integer)
 
-3. instructions
+### instructions
 id (integer)
 check_interval_in_sec (integer)
 inactivity_period_in_min (integer)
@@ -58,26 +62,26 @@ track_windows (boolean)
 track_tabs (boolean)
 user_id (integer)
 
-4. screenshots
+### screenshots
 id (integer)
 user_id (integer)
 screenshot_url (string)
 created_at (YYYY-MM-DD)
 time (HH-MM-SS)
 
-5. tabs
+### tabs
 id (integer)
 user_id (integer)
 tab_name (string)
 tab_activity_time (integer)
 
-6. users
+### users
 id (integer)
 username (string)
 hashed_passwords (string)
 status (string "online"/"offline")
 
-7. windows
+### windows
 id (integer)
 user_id (integer)
 windows_name (string)
